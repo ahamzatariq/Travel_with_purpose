@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         initialise();
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
         readerBtn.setOnClickListener(this);
         readerTv.setOnClickListener(this);
 
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void goToWriter()
     {
-        Intent intent = new Intent(this, WriterSignIn.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
 

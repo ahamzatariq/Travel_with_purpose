@@ -16,10 +16,12 @@
         android:alpha=".8"
         android:src="@drawable/background"
     />
+
     <View
+        android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha=".7"
+        android:alpha=".9"
         android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,54 +41,55 @@
 
     <EditText
         android:id="@+id/emailet"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/white"
         android:alpha=".9"
+        android:padding="10dp"
         android:layout_marginTop="80dp"
         app:layout_constraintTop_toBottomOf="@id/logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="26sp"
+        android:textSize="24sp"
         android:ems="10"
         android:hint="Email"
-        android:inputType="textPersonName"/>
+        android:inputType="textEmailAddress"/>
 
     <EditText
         android:id="@+id/passwordet"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/white"
         android:alpha=".9"
+        android:padding="10dp"
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/emailet"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="26sp"
+        android:textSize="24sp"
         android:ems="10"
         android:hint="Password"
-        android:inputType="textPersonName"/>
+        android:inputType="textPassword"/>
 
     <Button
         android:id="@+id/signupbtn"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintTop_toBottomOf="@id/passwordet"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/forgot_password_tv"
         android:gravity="center"
-        android:text="Sign In"
+        android:text="LOGIN"
         android:textColor="@color/white"
         android:textSize="16sp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         />
 
     <View
         android:layout_width="200dp"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:background="@color/white"
         android:alpha=".25"
         app:layout_constraintTop_toTopOf="@id/forgot_password_tv"
@@ -98,7 +101,7 @@
         android:id="@+id/forgot_password_tv"
         android:layout_width="200dp"
         android:layout_height="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:textSize="16sp"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/signupbtn"
@@ -108,7 +111,7 @@
 
     <View
         android:layout_width="200dp"
-        android:layout_height="20dp"
+        android:layout_height="30dp"
         android:background="@color/white"
         android:alpha=".25"
         app:layout_constraintTop_toTopOf="@id/create_account_tv"
@@ -130,5 +133,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
+
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

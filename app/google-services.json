@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "238839699994",
+    "firebase_url": "https://fyp-hamza.firebaseio.com",
+    "project_id": "fyp-hamza",
+    "storage_bucket": "fyp-hamza.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238839699994:android:1111e502b64c9dfcce8fa3",
+        "android_client_info": {
+          "package_name": "com.example.travelwithpurpose"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "238839699994-6hhi8l04herk2ojhcdqoubfi1c69pvtj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.travelwithpurpose",
+            "certificate_hash": "f67c73730364f372879b0c54db8466f37959a9db"
+          }
+        },
+        {
+          "client_id": "238839699994-r05m2k4710il8gke0htkj3v8f3b8dsp9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDP4HK_57yYcM_5puaYyeKacgOHnd0utec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "238839699994-r05m2k4710il8gke0htkj3v8f3b8dsp9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
