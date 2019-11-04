@@ -94,7 +94,7 @@ public class WriterSignIn extends AppCompatActivity {
     }
 
     private void sendtoMain(){
-        Intent mainIntent = new Intent(getApplicationContext(), HomeActivity.class);
+        Intent mainIntent = new Intent(WriterSignIn.this, HomeActivity.class);
         startActivity(mainIntent);
         finish();
     }

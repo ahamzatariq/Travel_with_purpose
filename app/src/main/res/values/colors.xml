@@ -20,6 +20,7 @@
 
     <color name="white">#FFFFFF</color>
 
-
+    <color name="likeGray">#747474</color>
+    <color name="likeRed">#FFCF3737</color>
 
 </resources>

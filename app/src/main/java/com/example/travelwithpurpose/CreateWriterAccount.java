@@ -51,7 +51,7 @@ public class CreateWriterAccount extends AppCompatActivity
             public void onClick(View view) {
                 Intent intent = new Intent(CreateWriterAccount.this, WriterSignIn.class);
                 startActivity(intent);
-                finish();1
+                finish();
             }
         });
 
@@ -72,7 +72,10 @@ public class CreateWriterAccount extends AppCompatActivity
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
                                 if(task.isSuccessful()){
-                                    sendToMain();
+                                    Intent intent = new Intent(CreateWriterAccount.this, SetupActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                    //sendToMain();
                                 } else {
                                     String e = task.getException().getMessage();
                                     Toast.makeText(CreateWriterAccount.this, e, Toast.LENGTH_SHORT).show();
