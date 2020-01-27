@@ -111,6 +111,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
         String userName = user_list.get(position).getName();
         String userImage = user_list.get(position).getImage();
         holder.setUserData(userName, userImage);
+
 //        firebaseFirestore.collection("Users").document(user_id).get()
 //                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
 //            @Override
@@ -226,7 +227,9 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        firebaseFirestore.collection("Posts").document(blogPostId).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        firebaseFirestore.collection("Posts").document(blogPostId)
+                                .delete()
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 blog_list.remove(position);

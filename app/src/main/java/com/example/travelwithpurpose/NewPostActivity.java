@@ -94,7 +94,9 @@ public class NewPostActivity extends AppCompatActivity {
                     .load(postImage)
                     .into(newPostImage);
 
-            postImageUri = Uri.parse(imageUri);
+            if(imageUri != null) {
+                postImageUri = Uri.parse(imageUri);
+            }
         }
 
         if(getIntent().getStringExtra("edit") != null){
