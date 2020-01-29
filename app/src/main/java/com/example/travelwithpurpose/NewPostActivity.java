@@ -9,7 +9,10 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,17 +43,19 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
+import fr.ganfra.materialspinner.MaterialSpinner;
 import id.zelory.compressor.Compressor;
 
 import static io.opencensus.tags.TagKey.MAX_LENGTH;
 
-public class NewPostActivity extends AppCompatActivity {
+public class NewPostActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Toolbar toolbar;
     EditText newPostDesc;
     ImageView newPostImage;
     Button newPostBtn;
     ProgressBar progressBar;
+    MaterialSpinner spinner;
 
     Uri postImageUri = null;
     StorageReference storageReference;
@@ -60,7 +65,9 @@ public class NewPostActivity extends AppCompatActivity {
     String currentUserID;
     Bitmap compressedImageFile;
 
-    String postImage, postDesc, blogID, imageUri;
+    String postImage, postDesc, blogID, imageUri, category;
+    String[] spinnerItems = {"General", "Entertainment", "Lifestyle", "Technology", "Fashion", "Health", "Sports", "Academia"};
+    String spinnerText = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +79,7 @@ public class NewPostActivity extends AppCompatActivity {
         newPostBtn = findViewById(R.id.newPostBtn);
         toolbar = findViewById(R.id.main_toolbar);
         progressBar = findViewById(R.id.progressBar);
+        spinner = findViewById(R.id.spinner);
 
         storageReference = FirebaseStorage.getInstance().getReference();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -83,11 +91,17 @@ public class NewPostActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Add New Post");
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerItems);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
         if(getIntent() != null){
             postImage = getIntent().getStringExtra("image");
             postDesc = getIntent().getStringExtra("desc");
             blogID = getIntent().getStringExtra("blogID");
             imageUri = getIntent().getStringExtra("imageUri");
+            category = getIntent().getStringExtra("category");
 
             newPostDesc.setText(postDesc);
             Glide.with(getApplicationContext())
@@ -117,6 +131,7 @@ public class NewPostActivity extends AppCompatActivity {
             newPostDesc.setTextColor(getResources().getColor(R.color.colorAccent));
             newPostImage.setEnabled(false);
             newPostBtn.setVisibility(View.INVISIBLE);
+            spinner.setEnabled(false);
 
         }
 
@@ -152,7 +167,7 @@ public class NewPostActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final String desc = newPostDesc.getText().toString();
 
-                if(!TextUtils.isEmpty(desc) && postImageUri != null){
+                if(!TextUtils.isEmpty(desc) && postImageUri != null && !spinnerText.equalsIgnoreCase("Category")){
                     Toast.makeText(NewPostActivity.this, "Inside button", Toast.LENGTH_SHORT).show();
 
                     progressBar.setVisibility(View.VISIBLE);
@@ -224,10 +239,12 @@ public class NewPostActivity extends AppCompatActivity {
                                             postMap.put("desc", desc);
                                             postMap.put("user_id", currentUserID);
                                             postMap.put("timestamp", FieldValue.serverTimestamp());
+                                            postMap.put("category", spinnerText);
 
                                             if(getIntent().getStringExtra("image") != null){
 
-                                                firebaseFirestore.collection("Posts").document(blogID).set(postMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                firebaseFirestore.collection("Posts").document(blogID).set(postMap)
+                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if(task.isSuccessful()){
@@ -248,7 +265,8 @@ public class NewPostActivity extends AppCompatActivity {
                                                             @Override
                                                             public void onComplete(@NonNull Task<DocumentReference> task) {
                                                                 if(task.isSuccessful()){
-                                                                    Toast.makeText(NewPostActivity.this, "Post Created", Toast.LENGTH_SHORT).show();
+                                                                    Toast.makeText(NewPostActivity.this, "Post Created",
+                                                                            Toast.LENGTH_SHORT).show();
                                                                     Intent intent = new Intent(NewPostActivity.this, HomeActivity.class);
                                                                     startActivity(intent);
                                                                     finish();
@@ -292,6 +310,17 @@ public class NewPostActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        spinnerText = parent.getItemAtPosition(position).toString();
+        //Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+        Log.d("Spinner value", spinnerText);
+    }
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 
     private void imagePicker(){

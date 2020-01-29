@@ -30,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.hbb20.CountryCodePicker;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -47,6 +48,7 @@ public class SetupActivity extends AppCompatActivity {
     Button setupBtn;
     ProgressBar progressBar;
     Uri imageUri = null;
+    CountryCodePicker countryCodePicker;
 
     private String username;
     private String userID;
@@ -68,6 +70,7 @@ public class SetupActivity extends AppCompatActivity {
         setupImage = findViewById(R.id.imageView);
         toolbar = findViewById(R.id.toolbar);
         progressBar = findViewById(R.id.progressSetup);
+        countryCodePicker = findViewById(R.id.ccp);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Account Settings");
@@ -88,10 +91,13 @@ public class SetupActivity extends AppCompatActivity {
                     if(task.getResult().exists()){
                         String name = task.getResult().getString("name");
                         String image = task.getResult().getString("image");
+                        String countryCode = task.getResult().getString("countryCode");
 
                         imageUri = Uri.parse(image);
 
                         nameEdit.setText(name);
+
+                        countryCodePicker.setCountryForNameCode(countryCode);
 
                         RequestOptions placeholderRequest = new RequestOptions();
                         placeholderRequest.placeholder(R.drawable.default_profile);
@@ -193,6 +199,8 @@ public class SetupActivity extends AppCompatActivity {
         Map<String, String> userMap = new HashMap<>();
         userMap.put("name", username);
         userMap.put("image", downloadUri.toString());
+        userMap.put("country", countryCodePicker.getSelectedCountryName());
+        userMap.put("countryCode", countryCodePicker.getSelectedCountryNameCode());
 
         firebaseFirestore.collection("Users").document(userID).set(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

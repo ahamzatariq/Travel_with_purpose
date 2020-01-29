@@ -42,6 +42,10 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
     implementation 'id.zelory:compressor:2.1.0'
 
+    implementation 'com.hbb20:ccp:2.3.7'
+    
+    implementation 'com.github.ganfra:material-spinner:2.0.0'
+
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 }
 

@@ -16,17 +16,20 @@ public class BlogPost extends com.example.travelwithpurpose.helpers.BlogPostId {
 
     public Date timestamp;
 
+    public String category;
+
     public BlogPost(){
 
     }
 
-    public BlogPost(String desc, String user_id, String image_url, String thumb, Date timestamp, String imageURI) {
+    public BlogPost(String desc, String user_id, String image_url, String thumb, Date timestamp, String imageURI, String category) {
         this.desc = desc;
         this.user_id = user_id;
         this.image_url = image_url;
         this.thumb = thumb;
         this.timestamp = timestamp;
         this.imageURI = imageURI;
+        this.category = category;
     }
 
     public String getImageURI() {
@@ -75,5 +78,13 @@ public class BlogPost extends com.example.travelwithpurpose.helpers.BlogPostId {
 
     public void setThumb(String thumb) {
         this.thumb = thumb;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

@@ -44,6 +44,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/newPostImage" />
 
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:ms_multiline="false"
+        app:ms_hint="Category"
+        app:ms_enableFloatingLabel="true"
+        app:ms_enableErrorLabel="false"
+        app:ms_arrowSize="16dp"
+        app:ms_alignLabels="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newPostDesc"/>
+
     <Button
         android:id="@+id/newPostBtn"
         android:layout_width="300dp"
@@ -55,7 +72,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newPostDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
     <ProgressBar
         android:id="@+id/progressBar"

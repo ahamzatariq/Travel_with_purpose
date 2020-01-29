@@ -89,7 +89,8 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
         }
 
         final String desc_data = blog_list.get(position).getDesc();
-        holder.setDescText(desc_data);
+        final String category = blog_list.get(position).getCategory();
+        holder.setDescText(desc_data, category);
 
         final String image_url = blog_list.get(position).getImage_url();
         String thumb_url = blog_list.get(position).getThumb();
@@ -110,7 +111,8 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
         String userName = user_list.get(position).getName();
         String userImage = user_list.get(position).getImage();
-        holder.setUserData(userName, userImage);
+        String userCountry = user_list.get(position).getCountry();
+        holder.setUserData(userName, userImage, userCountry);
 
 //        firebaseFirestore.collection("Users").document(user_id).get()
 //                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -259,7 +261,7 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
 
         private View mView;
 
-        private TextView descView, timeStamp, userName, likeCount;
+        private TextView descView, timeStamp, userName, likeCount, countryView, categoryView;
         private ImageView blogImage, blogLikeImage, blogCommentBtn;
         private CircleImageView userImage;
 
@@ -275,11 +277,13 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
             editBtn = mView.findViewById(R.id.blog_editBtn);
         }
 
-        public void setUserData(String username, String image){
+        public void setUserData(String username, String image, String country){
             userName = mView.findViewById(R.id.username);
             userImage = mView.findViewById(R.id.user_image);
+            countryView = mView.findViewById(R.id.country);
 
             userName.setText(username);
+            countryView.setText(country);
             Glide.with(context)
                     .load(image)
                     .into(userImage);
@@ -290,9 +294,11 @@ public class BlogRecyclerAdapter extends RecyclerView.Adapter<BlogRecyclerAdapte
             likeCount.setText(count + " Likes");
         }
 
-        public void setDescText(String text){
+        public void setDescText(String text, String category){
             descView = mView.findViewById(R.id.description);
+            categoryView = mView.findViewById(R.id.category);
             descView.setText(text);
+            categoryView.setText(category);
         }
 
         public void setBlogImage(String downloadUri, String thumbUri){
