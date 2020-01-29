@@ -159,14 +159,14 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 //Toast.makeText(getContext(), "Search: " + s, Toast.LENGTH_SHORT).show();
-                search(s);
+                search(s.toLowerCase());
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
 //                Toast.makeText(getContext(), "Search: " + s, Toast.LENGTH_SHORT).show();
-                search(s);
+                search(s.toLowerCase());
                 return false;
             }
         });
@@ -189,7 +189,7 @@ public class HomeFragment extends Fragment {
 
             searchResults = new ArrayList<>();
             for(BlogPost blogPost : blog_list){
-                if(blogPost.getDesc() != null && blogPost.getDesc().contains(query)){
+                if(blogPost.getDesc() != null && blogPost.getDesc().toLowerCase().contains(query)){
                     searchResults.add(blogPost);
                 }
             }
