@@ -1,17 +1,21 @@
 package com.example.travelwithpurpose.fragments;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -42,6 +46,7 @@ public class HomeFragment extends Fragment {
     private List<User> user_list;
 
     SearchView searchView;
+    Button categoryFilter;
 
     FirebaseAuth mAuth;
     FirebaseFirestore firebaseFirestore;
@@ -49,6 +54,9 @@ public class HomeFragment extends Fragment {
     DocumentSnapshot lastVisible;
 
     Boolean isFirstPageFIrstLoad = true;
+
+    String filterSelection = "All";
+    int checkedItem = 0;
 
     List<BlogPost> searchResults;
 
@@ -65,6 +73,7 @@ public class HomeFragment extends Fragment {
 
         blog_list_view = view.findViewById(R.id.blog_list);
         searchView = view.findViewById(R.id.searchView);
+        categoryFilter = view.findViewById(R.id.categoryFilter);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -155,6 +164,13 @@ public class HomeFragment extends Fragment {
             });
         }
 
+        categoryFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAlertDialog();
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -190,7 +206,13 @@ public class HomeFragment extends Fragment {
             searchResults = new ArrayList<>();
             for(BlogPost blogPost : blog_list){
                 if(blogPost.getDesc() != null && blogPost.getDesc().toLowerCase().contains(query)){
-                    searchResults.add(blogPost);
+                    if (!filterSelection.equals("All")) {
+                        if(blogPost.getCategory() != null && blogPost.getCategory().equals(filterSelection)){
+                            searchResults.add(blogPost);
+                        }
+                    } else {
+                        searchResults.add(blogPost);
+                    }
                 }
             }
 
@@ -210,6 +232,74 @@ public class HomeFragment extends Fragment {
         blog_list_view.setLayoutManager(new LinearLayoutManager(getActivity()));
         blog_list_view.setAdapter(blogRecyclerAdapter);
         blogRecyclerAdapter.notifyDataSetChanged();
+    }
+
+    private void showAlertDialog() {
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        alertDialog.setTitle("Select Search Category");
+        final String[] items = {"All", "General", "Entertainment", "Lifestyle", "Technology", "Fashion", "Health", "Sports", "Academia"};
+
+        alertDialog.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        filterSelection = items[0];
+                        checkedItem = 0;
+                        Log.d("Selection", filterSelection);
+                        break;
+                    case 1:
+                        filterSelection = items[1];
+                        checkedItem = 1;
+                        Log.d("Selection", filterSelection);
+                        break;
+                    case 2:
+                        filterSelection = items[2];
+                        checkedItem = 2;
+                        Log.d("Selection", filterSelection);
+                        break;
+                    case 3:
+                        filterSelection = items[3];
+                        checkedItem = 3;
+                        Log.d("Selection", filterSelection);
+                        break;
+                    case 4:
+                        filterSelection = items[4];
+                        checkedItem = 4;
+                        Log.d("Selection", filterSelection);
+                        break;
+                    case 5:
+                        filterSelection = items[5];
+                        checkedItem = 5;
+                        Log.d("Selection", filterSelection);
+                        break;
+                    case 6:
+                        filterSelection = items[6];
+                        checkedItem = 6;
+                        Log.d("Selection", filterSelection);
+                        break;
+                    case 7:
+                        filterSelection = items[7];
+                        checkedItem = 7;
+                        Log.d("Selection", filterSelection);
+                        break;
+                    case 8:
+                        filterSelection = items[8];
+                        checkedItem = 8;
+                        Log.d("Selection", filterSelection);
+                        break;
+                }
+            }
+        }).setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Log.d("Final Selection", filterSelection);
+            }
+        });
+
+        AlertDialog alert = alertDialog.create();
+        alert.setCanceledOnTouchOutside(true);
+        alert.show();
     }
 
     public void loadMorePosts(){
