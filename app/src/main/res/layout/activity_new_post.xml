@@ -23,11 +23,13 @@
         android:layout_height="256dp"
         android:contentDescription="TODO"
         android:scaleType="centerCrop"
+        android:visibility="visible"
+        android:background="@drawable/default_image_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_toolbar"
-        app:srcCompat="@drawable/default_image_bg" />
+        app:layout_constraintTop_toBottomOf="@+id/main_toolbar"/>
+
 
     <EditText
         android:id="@+id/newPostDesc"
