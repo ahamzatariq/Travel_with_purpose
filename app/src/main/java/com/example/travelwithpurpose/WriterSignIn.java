@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class WriterSignIn extends AppCompatActivity {
 
-    TextView signUpTv;
+    TextView signUpTv,passwordResetTv;
     EditText loginEmailText;
     EditText loginPassText;
     Button loginBtn;
@@ -42,6 +42,16 @@ public class WriterSignIn extends AppCompatActivity {
             public void onClick(View view)
             {
                 Intent intent = new Intent(getApplicationContext(), CreateWriterAccount.class);
+                startActivity(intent);
+            }
+        });
+
+        passwordResetTv.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getApplicationContext(), ForgotPassword.class);
                 startActivity(intent);
             }
         });
@@ -75,7 +85,10 @@ public class WriterSignIn extends AppCompatActivity {
 
     private void initialise() {
         signUpTv = findViewById(R.id.create_account_tv);
+        passwordResetTv = findViewById(R.id.forgot_password_tv);
         loginEmailText = findViewById(R.id.emailet);
+        if (getIntent().getStringExtra("email")!=null)
+            loginEmailText.setText(getIntent().getStringExtra("email"));
         loginPassText = findViewById(R.id.passwordet);
         loginBtn = findViewById(R.id.signupbtn);
         loginProgress = findViewById(R.id.login_progress);

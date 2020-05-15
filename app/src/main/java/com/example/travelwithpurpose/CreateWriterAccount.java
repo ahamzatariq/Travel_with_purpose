@@ -39,6 +39,8 @@ public class CreateWriterAccount extends AppCompatActivity
 
         createWriterbtn = findViewById(R.id.signupbtn);
         regEmail = findViewById(R.id.emailet);
+        if (getIntent().getStringExtra("email")!=null)
+            regEmail.setText(getIntent().getStringExtra("email"));
         regPass = findViewById(R.id.passwordet);
         confPass = findViewById(R.id.passwordconet);
         loginBtn = findViewById(R.id.loginBtn);
