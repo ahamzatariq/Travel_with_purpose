@@ -129,9 +129,12 @@ public class NewPostActivity extends AppCompatActivity implements AdapterView.On
             getSupportActionBar().setTitle("Blog Post Details");
             newPostDesc.setEnabled(false);
             newPostDesc.setTextColor(getResources().getColor(R.color.colorAccent));
+            newPostDesc.setTextSize(20);
             newPostImage.setEnabled(false);
             newPostBtn.setVisibility(View.INVISIBLE);
-            spinner.setEnabled(false);
+//            spinner.setEnabled(false);
+            spinner.setVisibility(View.INVISIBLE);
+
 
         }
 
@@ -332,6 +335,7 @@ public class NewPostActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {

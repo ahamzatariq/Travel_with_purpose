@@ -204,6 +204,7 @@ public class HomeFragment extends Fragment {
             //Toast.makeText(getContext(), "Inside search: " + query, Toast.LENGTH_SHORT).show();
 
             searchResults = new ArrayList<>();
+
             for(BlogPost blogPost : blog_list){
                 if(blogPost.getDesc() != null && blogPost.getDesc().toLowerCase().contains(query)){
                     if (!filterSelection.equals("All")) {
@@ -237,7 +238,7 @@ public class HomeFragment extends Fragment {
     private void showAlertDialog() {
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
         alertDialog.setTitle("Select Search Category");
-        final String[] items = {"All", "General", "Entertainment", "Lifestyle", "Technology", "Fashion", "Health", "Sports", "Academia"};
+        final String[] items = {"All", "General", "Entertainment", "Lifestyle", "Scholarship", "Fashion", "Health", "Sports", "Academia"};
 
         alertDialog.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
             @Override
@@ -294,6 +295,20 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Log.d("Final Selection", filterSelection);
+
+                searchResults = new ArrayList<>();
+
+                for(BlogPost blogPost : blog_list){
+                    if (!filterSelection.equals("All")) {
+                        if(blogPost.getCategory() != null && blogPost.getCategory().equals(filterSelection)){
+                            searchResults.add(blogPost);
+                        }
+                    } else {
+                        searchResults.add(blogPost);
+                    }
+                }
+
+                setAdapter(searchResults);
             }
         });
 
